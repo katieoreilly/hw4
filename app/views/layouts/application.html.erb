@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Tacostagram Final</title>
+    <title>Travel Journal</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
@@ -10,15 +10,24 @@
   </head>
 
   <body>
-    <div>
+    <p>
+      <% @user = User.find_by({ "id" => session["user_id"] }) %>
+      <% if @user == nil %>
+        <!-- if no user logged-in, display signup and login links -->
+        <a href="/users/new">Sign Up</a>
+        |
+        <a href="/login">Login</a>
+      <% else %>
+        <!-- else, if user logged-in, display user name and logout link -->
+        Hey, <%= @user["username"] %>
+        |
+        <a href="/logout">Logout</a>
+      <% end %>
+    </p>
+
+    <p>
       <%= flash["notice"] %>
-    </div>
-    <div>
-      <a href="/">Home</a>
-      <a href="/logout">Logout</a>
-      <a href="/login">Login</a>
-      <a href="/users/new">Signup</a>
-    </div>
+    </p>
 
     <%= yield %>
   </body>

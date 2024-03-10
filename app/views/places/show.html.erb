@@ -1,11 +1,29 @@
 <h1><%= @place["name"] %></h1>
 
 <h2>My Entries</h2>
-<% for entry in @entries %>
-  <h3><%= entry["title"] %></h3>
-  <h4><%= entry["occurred_on"] %></h4>
-  <p><%= entry["description"] %></p>
-<% end %>
+<div class="row">
+  <% @entries.each_slice(3) do |entries_slice| %>
+    <div class="row">
+      <% entries_slice.each do |entry| %>
+        <div class="col-sm-4">
+          <h3><%= entry["title"] %></h3>
+          <div class="small fst-italic"><%= entry["occurred_on"] %></div>
+          <h4>
+            <%# find user who created post %>
+            <% user = User.find_by({ "id" => entry["user_id"] }) %>
+            <%# handle any potential bad data where the post is missing a user %>
+            <% if user %>
+              <%= user["username"] %>
+            <% else %>
+              anonymous
+            <% end %>
+          </h4>
+          <p><%= entry["description"] %></p>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+</div>
 
 <p>
   <a href="/entries/new?place_id=<%= @place["id"] %>">New Entry</a>
@@ -14,3 +32,7 @@
 <p>
   <a href="/places">Back to All Places</a>
 </p>
+
+
+
+

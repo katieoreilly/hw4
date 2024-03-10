@@ -7,6 +7,14 @@ class PlacesController < ApplicationController
   def show
     @place = Place.find_by({ "id" => params["id"] })
     @entries = Entry.where({ "place_id" => @place["id"], "user_id" => session["user_id"]})
+
+    # alternative responses to requests other than HTML
+    respond_to do |format|
+      format.html # implicitly renders posts/index.html.erb
+      format.json do
+        render :json => @entries
+      end
+    end
   end
 
   def new

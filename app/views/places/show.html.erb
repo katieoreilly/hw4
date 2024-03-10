@@ -8,23 +8,25 @@
         <div class="col-sm-4">
           <h3><%= entry["title"] %></h3>
           <div class="small fst-italic"><%= entry["occurred_on"] %></div>
-          <h4>
-            <%# find user who created post %>
-            <% user = User.find_by({ "id" => entry["user_id"] }) %>
-            <%# handle any potential bad data where the post is missing a user %>
-            <% if user %>
-              <%= user["username"] %>
-            <% else %>
-              anonymous
-            <% end %>
-
-      <% if entry.uploaded_image.attached? %>
-        <img src="<%= url_for(entry.uploaded_image) %>" class="img-fluid">
-      <% else %>
-        <img src="<%= entry["image"] %>" class="img-fluid">
-      <% end %>
-
-          </h4>
+          <%# conditionally display attached file if entry.uploaded_image.attached? %>
+          <% if entry.uploaded_image.attached? %>
+            <%# use url_for(entry.uploaded_image) as attached file's url %>
+            <img src="<%= url_for(entry.uploaded_image) %>" class="img-fluid">
+          <% else %>
+            <%# otherwise display original image url from database column %>
+            <img src="<%= entry["image"] %>" class="img-fluid">
+          <% end %>
+          
+          <h5>
+          <%# find user who created post %>
+          <% user = User.find_by({ "id" => entry["user_id"] }) %>
+          <%# handle any potential bad data where the post is missing a user %>
+          <% if user %>
+            <p><%= user["username"] %></p>
+          <% else %>
+            <p>anonymous</p>
+          <% end %>
+          </h5>
           <p><%= entry["description"] %></p>
         </div>
       <% end %>
@@ -39,7 +41,3 @@
 <p>
   <a href="/places">Back to All Places</a>
 </p>
-
-
-
-

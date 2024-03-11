@@ -1,15 +1,14 @@
 <div class="container">
   <h1>Places</h1>
 
-  <p>
-    <a href="/places/new/" class="btn btn-primary">New Place</a> <!-- Changed class to btn-primary -->
-  </p>
-
-  <ul class="list-unstyled"> <!-- Add class list-unstyled to remove bullet points -->
+  <ul class="list-unstyled">
     <% for place in @places %>
-      <li style="margin-bottom: 5px;"><a href="/places/<%= place["id"] %>"><%= place["name"] %></a></li>
+      <li style="margin-bottom: 5px;"><a href="/places/<%= place["id"] %>" style="color: black;"><%= place["name"] %></a></li>
     <% end %>
   </ul>
 
-  
+    <p>
+    <a href="/places/new/" class="btn btn-primary">New Place</a>
+  </p>
+
 </div>

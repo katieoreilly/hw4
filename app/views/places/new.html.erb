@@ -1,11 +1,12 @@
-<h1>New Place</h1>
+<div class="container mt-4">
+  <h1 class="mb-4">New Place</h1> <!-- Added margin bottom -->
 
-<form action="/places" method="post">
-  <p>
-    <label for="name_input">Name</label>
-    <input type="text" name="name" id="name_input">
-  </p>
+  <form action="/places" method="post">
+    <div class="mb-3"> <!-- Added margin bottom -->
+      <label for="name_input" class="form-label">Name</label>
+      <input type="text" name="name" id="name_input" class="form-control">
+    </div>
 
-  <button class="btn btn-primary">Save</button> <!-- Using btn-primary class for blue color -->
-</form>
-
+    <button class="btn btn-primary">Save</button>
+  </form>
+</div>
